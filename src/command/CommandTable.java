@@ -10,30 +10,30 @@ import input.KeyData;
 import struct.Key;
 
 /**
- * キー入力データをそれに対応するアクションに変換する処理を行うクラス．
+ * Class that performs the process of converting key input data into corresponding actions.
  */
 public class CommandTable {
 
 	/**
-	 * クラスコンストラクタ．
-	 */
+     * Class constructor.
+     */
 	public CommandTable() {
 
 	}
 
 	/**
-	 * P1またはP2のキー入力データを対応するアクションに変換する処理を行い，そのアクションを返す．<br>
-	 * P1とP2の判別は，キャラクターデータが持つプレイヤー番号によって行う．
-	 *
-	 * @param character
-	 *            キャラクターデータ
-	 * @param input
-	 *            P1とP2両方のキー入力が格納されたキュー
-	 *
-	 * @return キー入力データに対応するアクション
-	 *
-	 * @see KeyData
-	 */
+     * Processes P1's or P2's key input data and returns the corresponding action.<br>
+     * The distinction between P1 and P2 is based on the player number in the character data.
+     *
+     * @param character
+     *            Character data
+     * @param input
+     *            Queue containing key inputs for both P1 and P2
+     *
+     * @return Action corresponding to the key input data
+     *
+     * @see KeyData
+     */
 	public Action interpretationCommandFromKeyData(Character character, Deque<KeyData> input) {
 		Key nowKeyData;
 		boolean pushA = false;
@@ -47,8 +47,7 @@ public class CommandTable {
 		temp = input.removeLast();
 		nowKeyData = temp.getKeys()[charIndex];
 
-		// The decision as input only at the moment you press the button. Press
-		// keeps flick.
+		// Determine input only at the moment a button is pressed. Holding a button is treated as flicking.
 		if (!input.isEmpty()) {
 			pushA = nowKeyData.A && !input.getLast().getKeys()[charIndex].A;
 			pushB = nowKeyData.B && !input.getLast().getKeys()[charIndex].B;
@@ -80,18 +79,18 @@ public class CommandTable {
 	}
 
 	/**
-	 * P1またはP2のキー入力データを対応するアクションに変換する処理を行い，そのアクションを返す．<br>
-	 * このメソッドはシミュレータ内でのみ呼び出される.
-	 *
-	 * @param character
-	 *            キャラクターデータ
-	 * @param input
-	 *            P1またはP2のキー入力が格納されたキュー
-	 *
-	 * @return キー入力データに対応するアクション
-	 *
-	 * @see Key
-	 */
+     * Processes P1's or P2's key input data and returns the corresponding action.<br>
+     * This method is only called within the simulator.
+     *
+     * @param character
+     *            Character data
+     * @param input
+     *            Queue containing key inputs for either P1 or P2
+     *
+     * @return Action corresponding to the key input data
+     *
+     * @see Key
+     */
 	public Action interpretationCommandFromKey(Character character, Deque<Key> input) {
 		boolean pushA = false;
 		boolean pushB = false;
@@ -131,29 +130,29 @@ public class CommandTable {
 	}
 
 	/**
-	 * 引数として渡されたキー入力情報とキャラクター情報を基に, それに対応するアクションを返す.<br>
-	 *
-	 * @param pushA
-	 *            最新のキー入力でAキー(P1: Z, P2: T)が押されているかどうか
-	 * @param pushB
-	 *            最新のキー入力でBキー(P1: X, P2: Y)が押されているかどうか
-	 * @param pushC
-	 *            最新のキー入力でCキー(P1: C, P2: U)が押されているかどうか
-	 * @param nowKeyData
-	 *            最新のキー入力
-	 * @param commandList
-	 *            直近4つの方向キー入力を格納した配列(新しい入力ほどindexが小さい)
-	 * @param state
-	 *            キャラクターの現在の状態
-	 * @param isFront
-	 *            キャラクターが向いている方向(右向きはtrue;左向きはfalse)
-	 *
-	 * @return キー入力情報とキャラクター情報に対応するアクション
-	 *
-	 * @see Key
-	 * @see State
-	 * @see Action
-	 */
+     * Returns the action corresponding to the provided key input data and character information.
+     *
+     * @param pushA
+     *            Whether the A key (P1: Z, P2: T) is being pushed in the latest key input
+     * @param pushB
+     *            Whether the B key (P1: X, P2: Y) is being pushed in the latest key input
+     * @param pushC
+     *            Whether the C key (P1: C, P2: U) is being pushed in the latest key input
+     * @param nowKeyData
+     *            The latest key input
+     * @param commandList
+     *            Array containing the most recent 4 directional key inputs (newer inputs have smaller indices)
+     * @param state
+     *            Current state of the character
+     * @param isFront
+     *            Direction the character is facing (true for right, false for left)
+     *
+     * @return Action corresponding to the provided key input data and character information
+     *
+     * @see Key
+     * @see State
+     * @see Action
+     */
 	private Action convertKeyToAction(boolean pushA, boolean pushB, boolean pushC, Key nowKeyData, int[] commandList,
 			State state, boolean isFront) {
 		// 789

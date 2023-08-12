@@ -3,18 +3,16 @@ package fighting;
 import image.Image;
 
 /**
- * 波動拳のエフェクトを管理するクラス.<br>
- * Effectクラスを継承している.
+ * A class that manages the effects of the Hadouken attack.
+ * It inherits from the Effect class.
  */
 public class LoopEffect extends Effect {
 
 	/**
-	 * 指定されたデータでLoopEffectのインスタンスを作成するクラスコンストラクタ．
+	 * Constructor for creating an instance of LoopEffect with the specified data.
 	 *
-	 * @param attack
-	 *            攻撃オブジェクト
-	 * @param hitImages
-	 *            攻撃オブジェクトに対応する全てのエフェクト画像
+	 * @param attack The attack object
+	 * @param hitImages All effect images corresponding to the attack object
 	 */
 	public LoopEffect(Attack attack, Image[] hitImages) {
 		super(attack, hitImages);

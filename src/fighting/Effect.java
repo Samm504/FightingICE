@@ -3,13 +3,13 @@ package fighting;
 import image.Image;
 
 /**
- * 攻撃とそれに対応するエフェクトの画像を管理する親クラス．
+ * Parent class that manages attack and its corresponding effect images.
  */
 public class Effect {
 
 	/**
-	 * 1枚の画像を表示させる上限のフレーム数．
-	 */
+     * Maximum number of frames to display a single image.
+     */
 	protected static final int FRAME_PER_IMAGE = 5;
 
 	/**
@@ -23,25 +23,22 @@ public class Effect {
 	protected Image[] hitImages;
 
 	/**
-	 * エフェクトが生成されてからの経過時間．
-	 */
+     * Elapsed time since the effect was generated.
+     */
 	protected int currentFrame;
 
 	/**
-	 * 1枚の画像を表示させるフレーム数．
-	 */
+     * Number of frames to display a single effect image.
+     */
 	protected int framesPerImage;
 
 	/**
-	 * 引数として渡されたデータを用いてEffectクラスのインスタンスを生成するクラスコンストラクタ．
-	 *
-	 * @param attack
-	 *            Attackクラスのインスタンス
-	 * @param hitImages
-	 *            攻撃に対応する全てのエフェクト画像
-	 * @param framesPerImage
-	 *            1枚のエフェクト画像の表示フレーム数
-	 */
+     * Class constructor that generates an instance of the Effect class using the given data.
+     *
+     * @param attack         An instance of the Attack class.
+     * @param hitImages      Array of all effect images corresponding to the attack.
+     * @param framesPerImage Number of frames to display a single effect image.
+     */
 	public Effect(Attack attack, Image[] hitImages, int framesPerImage) {
 		this.attack = attack;
 		this.hitImages = hitImages;
@@ -50,24 +47,22 @@ public class Effect {
 	}
 
 	/**
-	 * 引数として渡されたデータを用いてEffectクラスのインスタンスを生成するクラスコンストラクタ．
-	 *
-	 * @param attack
-	 *            Attackクラスのインスタンス
-	 * @param hitImages
-	 *            攻撃に対応する全てのエフェクト画像
-	 */
+     * Class constructor that generates an instance of the Effect class using the given data.
+     *
+     * @param attack    An instance of the Attack class.
+     * @param hitImages Array of all effect images corresponding to the attack.
+     */
 	public Effect(Attack attack, Image[] hitImages) {
 		this(attack, hitImages, FRAME_PER_IMAGE);
 	}
 
 	/**
-	 * Updates the effect's state.
-	 *
-	 * @return {@code true} if the elapsed time since the effect was generated
-	 *         has not exceeded the time for displaying the effect,
-	 *         {@code false} otherwise
-	 */
+     * Updates the effect's state.
+     *
+     * @return {@code true} if the elapsed time since the effect was generated
+     * has not exceeded the time for displaying the effect,
+     * {@code false} otherwise
+     */
 	public boolean update() {
 		return ++this.currentFrame < (this.hitImages!=null ? this.hitImages.length : 6 * this.framesPerImage);
 	}

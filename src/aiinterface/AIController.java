@@ -13,13 +13,13 @@ import struct.Key;
 import struct.ScreenData;
 
 /**
- * AIのスレッドや処理を管理するクラス．
+ * Class that manages AI threads and processes.
  */
 public class AIController extends Thread {
 
 	private char deviceType;
     /**
-     * AIに実装すべきメソッドを定義するインタフェース．
+     * Interface defining methods to be implemented by the AI.
      */
     private AIInterface ai;
     private PlayerAgent grpc;
@@ -33,27 +33,27 @@ public class AIController extends Thread {
     private boolean playerNumber;
 
     /**
-     * 対戦が始まっているかどうかを表すフラグ．
+     * Flag indicating whether a match has started.
      */
     private boolean isFighting;
 
     /**
-     * 入力されたキー．
+     * Entered keys.
      */
     private Key key;
 
     /**
-     * 遅れフレーム．
+     * Frame delay.
      */
     private final static int DELAY = 15;
 
     /**
-     * フレームデータを格納するリスト．
+     * List to store frame data.
      */
     private LinkedList<FrameData> framesData;
 
     /**
-     * 画面情報を格納したデータ．
+     * Data containing screen information.
      */
     private ScreenData screenData;
 
@@ -63,16 +63,16 @@ public class AIController extends Thread {
     private RoundResult roundResult;
 
     /**
-     * 各AIの処理を同時に始めるための同期用オブジェクト．
+     * Synchronization object for starting each AI process simultaneously.
      */
     private Object waitObj;
     
     //private List<Double> durations = new ArrayList<>();
 
     /**
-     * 引数に指定されたAIインタフェースをセットし，AIControllerを初期化するクラスコンストラクタ．
+     * Class constructor that sets the provided AI interface and initializes AIController.
      *
-     * @param ai AIに実装すべきメソッドを定義するインタフェース
+     * @param ai AI interface defining methods to be implemented by the AI
      * @see AIInterface
      */
     public AIController(AIInterface ai) {
@@ -85,12 +85,11 @@ public class AIController extends Thread {
     	this.deviceType = InputManager.DEVICE_TYPE_GRPC;
     }
     /**
-     * 引数で与えられたパラメータをセットし，初期化を行う．
+     * Initializes with the provided parameters.
      *
-     * @param waitFrame    各AIの処理を同時に始めるための同期用オブジェクト
-     * @param gameData     ステージの画面幅や最大HPなどの，ゲーム内で不変の情報を格納したクラスのインスタンス
-     * @param playerNumber the character's side flag.<br>
-     *                     {@code true} if the character is P1, or {@code false} if P2.
+     * @param waitFrame    Synchronization object for starting each AI process
+     * @param gameData     Instance of a class containing immutable game information such as screen width and max HP
+     * @param playerNumber the character's side flag: {@code true} if P1, {@code false} if P2
      * @see GameData
      */
     public void initialize(Object waitFrame, GameData gameData, boolean playerNumber) {
@@ -173,10 +172,10 @@ public class AIController extends Thread {
     }
 
     /**
-     * AIからの入力情報を返す．<br>
-     * 入力情報が無ければ空のキーを返す．
+     * Returns input information from the AI.<br>
+     * Returns an empty key if there is no input information.
      *
-     * @return AIからの入力情報
+     * @return Input information from the AI
      * @see Key
      */
     public synchronized Key getInput() {
@@ -188,19 +187,19 @@ public class AIController extends Thread {
     }
 
     /**
-     * AIからの入力情報をセットする．
+     * Sets input information from the AI.
      *
-     * @param key AIからの入力情報
+     * @param key Input information from the AI
      */
     public synchronized void setInput(Key key) {
         this.key = new Key(key);
     }
 
     /**
-     * 対戦処理後のフレームデータをリストにセットする．<br>
-     * リストのサイズがDELAYより大きければ，最も古いフレームデータを削除する．
+     * Sets frame data after a match process.<br>
+     * If the list size is greater than DELAY, removes the oldest frame data.
      *
-     * @param fd 対戦処理後のフレームデータ
+     * @param fd Frame data after a match process
      * @see FrameData
      */
     public synchronized void setFrameData(FrameData fd) {
@@ -216,9 +215,9 @@ public class AIController extends Thread {
     }
 
     /**
-     * 対戦処理後の画面情報をセットする．<br>
+     * Sets screen data after a match process.<br>
      *
-     * @param screenData 対戦処理後の画面情報
+     * @param screenData Screen data after a match process
      * @see ScreenData
      */
     public synchronized void setScreenData(ScreenData screenData) {
@@ -230,8 +229,8 @@ public class AIController extends Thread {
     }
 
     /**
-     * リストに格納してあるフレームデータを削除する．<br>
-     * その後，DELAY-1個の空のフレームデータをリストに格納する．
+     * Clears the stored frame data in the list.<br>
+     * Then adds DELAY-1 empty frame data to the list.
      */
     public synchronized void clear() {
         if (this.framesData != null) {
@@ -244,9 +243,9 @@ public class AIController extends Thread {
     }
     
     /**
-     * 現在のラウンド終了時の結果をAIに渡す．
+     * Informs the AI about the current round result.
      *
-     * @param roundResult 現在のラウンド終了時の結果
+     * @param roundResult The current round result at the end of a round
      * @see RoundResult
      */
     public synchronized void informRoundResult(RoundResult roundResult) {
@@ -259,7 +258,7 @@ public class AIController extends Thread {
     }
 
     /**
-     * 対戦が終わったことを通知し，AIの終了処理を行う．
+     * Notifies the end of the match and performs AI's cleanup.
      */
     public synchronized void gameEnd() {
         this.isFighting = false;

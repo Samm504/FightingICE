@@ -3,8 +3,8 @@ package fighting;
 import image.Image;
 
 /**
- * 攻撃が当たったときに表示するエフェクト及びアッパー攻撃のエフェクトを管理するクラス.<br>
- * Effectクラスを継承している.
+ * A class that manages the effects displayed when an attack hits and upper attack effects.
+ * It inherits from the Effect class.
  */
 public class HitEffect extends Effect {
 
@@ -25,20 +25,14 @@ public class HitEffect extends Effect {
 	private int variationY;
 
 	/**
-	 * 指定されたデータでHitEffectのインスタンスを作成するコンストラクタ．
+	 * Constructor for creating an instance of HitEffect with the specified data.
 	 *
-	 * @param attack
-	 *            攻撃オブジェクト
-	 * @param hitImages
-	 *            攻撃オブジェクトに対応する全てのエフェクト画像
-	 * @param isHit
-	 *            the boolean value whether the attack conducted by the
-	 *            character hits the opponent or not
+	 * @param attack The attack object
+	 * @param hitImages All effect images corresponding to the attack object
+	 * @param isHit The boolean value indicating whether the attack conducted by the character hits the opponent or not
 	 *
-	 * @param variation
-	 *            エフェクト画像の表示位置をvariationX, variationYに従って変動させるかどうか
-	 * @param framesPerImage
-	 *            1枚のエフェクト画像の表示フレーム数
+	 * @param variation Whether to vary the display position of the effect images based on variationX and variationY
+	 * @param framesPerImage The number of frames to display each effect image
 	 */
 	public HitEffect(Attack attack, Image[] hitImages, boolean isHit, boolean variation, int framesPerImage) {
 		super(attack, hitImages, framesPerImage);
@@ -46,18 +40,14 @@ public class HitEffect extends Effect {
 	}
 
 	/**
-	 * 指定されたデータでHitEffectのインスタンスを作成するコンストラクタ．
+	 * Constructor for creating an instance of HitEffect with the specified data.
 	 *
-	 * @param attack
-	 *            攻撃オブジェクト
-	 * @param hitImages
-	 *            攻撃オブジェクトに対応する全てのエフェクト画像
-	 * @param isHit
-	 *            the boolean value whether the attack conducted by the
-	 *            character hits the opponent or not
+	 * @param attack The attack object
+	 * @param hitImages All effect images corresponding to the attack object
+	 * @param isHit The boolean value indicating whether the attack conducted by the character hits the opponent or not
 	 *
-	 * @param variation
-	 *            エフェクト画像の表示位置をvariationX, variationYに従って変動させるかどうか
+	 * @param variation Whether to vary the display position of the effect images based on variationX and variationY
+	 */         エフェクト画像の表示位置をvariationX, variationYに従って変動させるかどうか
 	 */
 	public HitEffect(Attack attack, Image[] hitImages, boolean isHit, boolean variation) {
 		super(attack, hitImages);
@@ -65,15 +55,11 @@ public class HitEffect extends Effect {
 	}
 
 	/**
-	 * 指定されたデータでHitEffectのインスタンスを作成するコンストラクタ．
+	 * Constructor for creating an instance of HitEffect with the specified data.
 	 *
-	 * @param attack
-	 *            攻撃オブジェクト
-	 * @param hitImages
-	 *            攻撃オブジェクトに対応する全てのエフェクト画像
-	 * @param isHit
-	 *            the boolean value whether the attack conducted by the
-	 *            character hits the opponent or not
+	 * @param attack The attack object
+	 * @param hitImages All effect images corresponding to the attack object
+	 * @param isHit The boolean value indicating whether the attack conducted by the character hits the opponent or not
 	 */
 	public HitEffect(Attack attack, Image[] hitImages, boolean isHit) {
 		this(attack, hitImages, isHit, true);
@@ -82,11 +68,8 @@ public class HitEffect extends Effect {
 	/**
 	 * Initializes the hit effect.
 	 *
-	 * @param isHit
-	 *            the boolean value whether the attack conducted by the
-	 *            character hits the opponent or not
-	 * @param variation
-	 *            エフェクト画像の表示位置をvariationX, variationYに従って変動させるかどうか
+	 * @param isHit The boolean value indicating whether the attack conducted by the character hits the opponent or not
+	 * @param variation Whether to vary the display position of the effect images based on variationX and variationY
 	 */
 	private void initialize(boolean isHit, boolean variation) {
 		this.isHit = isHit;

@@ -5,7 +5,7 @@ import struct.HitArea;
 import struct.MotionData;
 
 /**
- * 攻撃に関するデータを用いて，攻撃の判定処理を行うクラス．
+ * Class that performs attack detection based on attack data.
  */
 public class Attack {
 
@@ -166,11 +166,11 @@ public class Attack {
 	}
 
 	/**
-	 * Attackクラスのインスタンスのコピーを生成するコピーコンストラクタ．
-	 *
-	 * @param attack
-	 *            Attackクラスのインスタンス
-	 */
+     * Copy constructor for creating a copy of an Attack class instance.
+     *
+     * @param attack
+     *            Instance of Attack class
+     */
 	public Attack(Attack attack) {
 		if (attack != null) {
 			this.settingHitArea = attack.getSettingHitArea();
@@ -202,11 +202,11 @@ public class Attack {
 	}
 
 	/**
-	 * 引数として渡されたAttackDataクラスのインスタンスから変数の値をコピーし，
-	 * Attackクラスのインスタンスを新たに生成するクラスコンストラクタ．
+	 * Class constructor that generates a copy of an Attack class instance from
+	 * the provided AttackData instance.
 	 *
 	 * @param attackData
-	 *            AttackDataのインスタンス
+	 *            Instance of AttackData
 	 */
 	public Attack(AttackData attackData) {
 		if (attackData != null) {
@@ -239,7 +239,7 @@ public class Attack {
 	}
 
 	/**
-	 * 引数として渡された値を用いて，Attackクラスのインスタンスを作成するクラスコンストラクタ．
+	 * Class constructor that generates an instance of Attack with provided values.
 	 *
 	 * @param hitArea
 	 *            HitArea's information of this attack hit box set in Motion.csv
@@ -314,8 +314,8 @@ public class Attack {
 	}
 
 	/**
-	 * 引数として渡された値を用いて，インスタンス変数の初期化を行う．
-	 *
+ 	 * Initialize the instance variables using the provided values.
+ 	 *
 	 * @param playerNumber
 	 *            the player side's flag. {@code true} if the player is P1,
 	 *            {@code false} otherwise.
@@ -336,8 +336,9 @@ public class Attack {
 	}
 
 	/**
-	 * 波動拳の当たり判定領域の座標と波動拳が使われてからの経過フレームを更新し, まだ攻撃がアクティブかどうかを返す．
-	 *
+ 	 * Update the coordinates of the Hadouken's hitbox area and the elapsed frames since
+ 	 * the Hadouken was used, then return whether the attack is still active.
+ 	 *
 	 * @return {@code true} if the projectile attack is active, {@code false}
 	 *         otherwise
 	 */
@@ -348,10 +349,11 @@ public class Attack {
 	}
 
 	/**
-	 * 波動拳以外の攻撃の当たり判定領域の座標と攻撃が使われてからの経過フレームを更新し, まだ攻撃がアクティブかどうかを返す．
-	 *
+ 	 * Update the coordinates of the hitbox area for non-Hadouken attacks, taking into account the elapsed frames since
+ 	 * the attack was used by the specified character, and return whether the attack is still active.
+ 	 *
 	 * @param character
-	 *            攻撃を出したキャラクターのデータ
+	 *            Data of the character performing the attack
 	 *
 	 * @return {@code true} if the attack is active, {@code false} otherwise
 	 */
@@ -362,7 +364,7 @@ public class Attack {
 	}
 
 	/**
-	 * 引数として渡された値を用いて，攻撃の当たり判定領域を設定する．
+ 	 * Set the hitbox area for the attack using the values passed as arguments.
 	 *
 	 * @param x
 	 *            the character graphic's most top-left x-coordinate

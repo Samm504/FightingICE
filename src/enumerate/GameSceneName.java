@@ -1,7 +1,7 @@
 package enumerate;
 
 /**
- * ゲームシーンの名前を定義するクラス．
+ * Class that defines the names of game scenes.
  */
 public enum GameSceneName {
 	FIGHTING_MENU,

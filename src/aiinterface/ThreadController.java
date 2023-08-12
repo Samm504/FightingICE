@@ -1,45 +1,45 @@
 package aiinterface;
 
 /**
- * AIの実行のタイミングなどのスレッド関連の処理を扱うクラス．
+ * Class that handles thread-related processes such as AI execution timing.
  */
 public class ThreadController {
 
 	/**
-	 * ThreadController唯一のインスタンス
-	 */
+     * The sole instance of ThreadController.
+     */
 	private static ThreadController threadController = new ThreadController();
 
 	/**
-	 * P1のAIの処理の開始のタイミングを管理するオブジェクト．
-	 */
+     * Object managing the start timing of P1's AI processing.
+     */
 	private Object AI1;
 
 	/**
-	 * P2のAIの処理の開始のタイミングを管理するオブジェクト．
-	 */
+     * Object managing the start timing of P2's AI processing.
+     */
 	private Object AI2;
 
 	/**
-	 * P1のAIの処理が終わったかどうかを表すフラグ．<br>
-	 * Fastmodeのときのみ使用される．
-	 */
+     * Flag indicating whether P1's AI processing is complete.<br>
+     * Used only in Fastmode.
+     */
 	private boolean processedAI1;
 
 	/**
-	 * P2のAIの処理が終わったかどうかを表すフラグ．<br>
-	 * Fastmodeのときのみ使用される．
-	 */
+     * Flag indicating whether P2's AI processing is complete.<br>
+     * Used only in Fastmode.
+     */
 	private boolean processedAI2;
 
 	/**
-	 * 各AIの処理を同時に始めるための同期用オブジェクト
-	 */
+     * Synchronization object for starting each AI process simultaneously.
+     */
 	private Object endFrame;
 
 	/**
-	 * フィールド変数を初期化するクラスコンストラクタ
-	 */
+     * Class constructor to initialize field variables.
+     */
 	private ThreadController() {
 		this.AI1 = new Object();
 		this.AI2 = new Object();
@@ -49,17 +49,17 @@ public class ThreadController {
 	}
 
 	/**
-	 * ThreadControllerクラスの唯一のインスタンスを取得する．
-	 *
-	 * @return ThreadControllerクラスの唯一のインスタンス
-	 */
+     * Get the sole instance of the ThreadController class.
+     *
+     * @return The sole instance of the ThreadController class
+     */
 	public static ThreadController getInstance() {
 		return threadController;
 	}
 
 	/**
-	 * 各AIの処理を再開させる．
-	 */
+     * Resume processing for each AI.
+     */
 	public void resetAllAIsObj() {
 		synchronized (this.AI1) {
 			this.AI1.notifyAll();
@@ -70,14 +70,13 @@ public class ThreadController {
 	}
 
 	/**
-	 * 引数に指定したキャラクターの同期用オブジェクトを返す．
-	 *
-	 * @param playerNumber
-	 *            The character's side flag.<br>
-	 *            {@code true} if the character is P1, or {@code false} if P2.
-	 *
-	 * @return 引数に指定したキャラクターの同期用オブジェクト
-	 */
+     * Return the synchronization object for the specified character.
+     *
+     * @param playerNumber
+     *            The character's side flag: {@code true} if P1, {@code false} if P2.
+     *
+     * @return The synchronization object for the specified character
+     */
 	public Object getAIsObject(boolean playerNumber) {
 		if (playerNumber)
 			return this.AI1;
@@ -86,32 +85,31 @@ public class ThreadController {
 	}
 
 	/**
-	 * 1フレーム分のゲームの処理が終わったことを示すオブジェクトを返す．
-	 *
-	 * @return 1フレーム分のゲームの処理が終わったことを示すオブジェクト．
-	 */
+     * Get the object indicating the completion of one frame of game processing.
+     *
+     * @return The object indicating the completion of one frame of game processing.
+     */
 	public Object getEndFrame() {
 		return this.endFrame;
 	}
 
 	/**
-	 * 各AIの処理が終わったかどうかを表すフラグを{@code false}にする．<br>
-	 * Fastmodeのときのみ使用される．
-	 */
+     * Reset the flag indicating whether each AI's processing is complete to {@code false}.<br>
+     * Used only in Fastmode.
+     */
 	private void resetProcessedFlag() {
 		this.processedAI1 = false;
 		this.processedAI2 = false;
 	}
 
 	/**
-	 * 引数に指定したキャラクターの1フレーム分の処理が終わったことをセットする．<br>
-	 * セット後に，両方のAIが処理を終えているかどうかをチェックする．<br>
-	 * Fastmodeのときのみ使用される．
-	 *
-	 * @param playerNumber
-	 *            The character's side flag.<br>
-	 *            {@code true} if the character is P1, or {@code false} if P2.
-	 */
+     * Set the flag indicating the completion of one frame of processing for the specified character.<br>
+     * After setting, check whether both AIs have finished processing.<br>
+     * Used only in Fastmode.
+     *
+     * @param playerNumber
+     *            The character's side flag: {@code true} if P1, {@code false} if P2.
+     */
 	synchronized public void notifyEndProcess(boolean playerNumber) {
 		if (playerNumber) {
 			this.processedAI1 = true;
@@ -122,10 +120,10 @@ public class ThreadController {
 	}
 
 	/**
-	 * 現在のフレームにおいて，両AIが処理を終えているかどうかをチェックする．<br>
-	 * 終えている場合は，次のフレームの処理を開始させる．<br>
-	 * Fastmodeのときのみ使用される．
-	 */
+     * Check whether both AIs have finished processing for the current frame.<br>
+     * If both have finished, start processing for the next frame.<br>
+     * Used only in Fastmode.
+     */
 	private void checkEndFrame() {
 		if (this.processedAI1 && this.processedAI2) {
 			synchronized (this.endFrame) {

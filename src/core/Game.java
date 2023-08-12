@@ -26,21 +26,21 @@ import setting.ResourceSetting;
 import util.DeleteFiles;
 
 /**
- * ゲームの起動情報を設定し, 開始するゲームシーンを設定するクラス．
+ * Class that sets the game's launch information and specifies the starting game scene.
  */
 public class Game extends GameManager {
 
     /**
-     * 親クラスであるGameManagerを初期化するクラスコンストラクタ．
+     * Class constructor that initializes the parent class GameManager.
      */
     public Game() {
         super();
     }
 
     /**
-     * 起動時の引数を基に, ゲームの起動情報をセットする.
+     * Sets the game's launch information based on the command-line arguments.
      *
-     * @param options 起動時に入力した全ての引数を格納した配列
+     * @param options An array containing all the command-line arguments.
      */
     public void setOptions(String[] options) {
         // Reads the configurations here
@@ -104,7 +104,7 @@ public class Game extends GameManager {
                     break;
                 case "--disable-window":
                     FlagSetting.enableWindow = false;
-//                    FlagSetting.muteFlag = true;
+                //  FlagSetting.muteFlag = true;
                     FlagSetting.automationFlag = true;
                     break;
                 case "--fastmode":
@@ -168,7 +168,7 @@ public class Game extends GameManager {
 
     @Override
     public void initialize() {
-        // 使用フォントの初期化
+        // Initialize the font to be used
         Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
         GraphicManager.getInstance().setLetterFont(new LetterImage(awtFont, true));
 
@@ -185,7 +185,7 @@ public class Game extends GameManager {
         }
         
         if ((FlagSetting.automationFlag || FlagSetting.allCombinationFlag) && !FlagSetting.py4j && !FlagSetting.grpc) {
-            // -nまたは-aが指定されたときは, メニュー画面に行かず直接ゲームをLaunchする
+            // If -n or -a is specified, launch the game directly without going to the menu screen
             if (FlagSetting.allCombinationFlag) {
                 AIContainer.allAINameList = ResourceLoader.getInstance().loadFileNames("./data/ai", ".jar");
 
@@ -201,14 +201,14 @@ public class Game extends GameManager {
             Launcher launcher = new Launcher(GameSceneName.PLAY);
             this.startGame(launcher);
         } else if (FlagSetting.py4j) {
-        	// -Python側で起動するときは, Pythonシーンからゲームを開始する
+        	// When starting from the Python side, start the game from the Python scene
             Python python = new Python();
             this.startGame(python);
         } else if (FlagSetting.grpcAuto) {
         	Grpc grpc = new Grpc();
         	this.startGame(grpc);
         } else {
-            // 上記以外の場合, メニュー画面からゲームを開始する
+            // If none of the above, start the game from the menu screen
             HomeMenu homeMenu = new HomeMenu();
             this.startGame(homeMenu);
         }
@@ -216,11 +216,11 @@ public class Game extends GameManager {
     }
 
     /**
-     * 引数で指定されたキャラクター名が使用可能キャラクター内にあるかどうかを検索し, ある場合はその名前を返す．<br>
-     * 無ければ警告文を出し, ZENをデフォルトキャラクターとして返す．
+     * Searches if the provided character name is valid and available among the playable characters.
+     * If found, returns the character name; otherwise, issues a warning and returns "ZEN" as the default character.
      *
-     * @param characterName 検索するキャラクター名
-     * @return 使用キャラクター名
+     * @param characterName The character name to search for.
+     * @return The valid character name.
      */
     private String getCharacterName(String characterName) {
         for (String character : GameSetting.CHARACTERS) {

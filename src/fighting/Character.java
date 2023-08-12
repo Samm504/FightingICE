@@ -21,7 +21,7 @@ import struct.HitArea;
 import struct.Key;
 
 /**
- * ゲームの進行に応じてキャラクターが持つ情報を更新する役割を持つクラス．
+ * A class responsible for updating the information of a character based on the progress of the game.
  */
 public class Character {
 
@@ -127,17 +127,17 @@ public class Character {
     private int graphicSizeY;
 
     /**
-     * キャラクターの向きを決定する時にx座標を調整するために用いる水平方向の移動量．
+     * The horizontal movement amount used to adjust the x-coordinate when determining the character's direction.
      */
     private int graphicAdjustX;
 
     /**
-     * キャラクターの初期位置決定する時にx座標を調整するために用いる水平方向の移動量．
+     * The horizontal movement amount used to adjust the x-coordinate when determining the character's initial position.
      */
     private int graphicAdjustInitialX[];
 
     /**
-     * 攻撃が相手に当たった最後のフレーム．
+     * The last frame in which the attack hit the opponent.
      */
     private int lastHitFrame;
 
@@ -154,21 +154,20 @@ public class Character {
     private Deque<Key> processedCommands;
 
     /**
-     * キャラクターの全モーションを格納するリスト．
+     * A list that stores all motions of the character.
      *
      * @see Motion
      */
     private ArrayList<Motion> motionList;
 
     /**
-     * 攻撃の連続ヒット回数．
+     * The consecutive hit count of the attack.
      */
     private int hitCount;
 
     /**
-     * シミュレータ内での処理かどうかのフラグ．<br>
-     * {@code true} if the process is executed in the simulator, {@code false}
-     * otherwise.
+     * A flag indicating whether the processing is being done within the simulator.<br>
+     * {@code true} if the process is executed in the simulator, {@code false} otherwise.
      */
     private boolean isSimulateProcess;
     /**
@@ -233,9 +232,9 @@ public class Character {
     }
 
     /**
-     * 引数として渡されたこのクラスのインスタンスの情報を用いて，新たなインスタンスを生成するクラスコンストラクタ．
+     * Class constructor that generates a new instance using the information of the provided instance of this class as an argument.
      *
-     * @param character キャラクター情報を格納したCharacterクラスのインスタンス
+     * @param character An instance of the Character class that contains character information.
      */
     public Character(Character character) {
         initializeList();
@@ -269,14 +268,14 @@ public class Character {
     }
 
     /**
-     * 引数として渡されたデータを用いてCharacterクラスのインスタンスを作成するコンストラクタ．<br>
-     * このコンストラクタはシミュレータ内でのみ呼び出される.
+     * Constructor that creates an instance of the Character class using the provided data as arguments.<br>
+     * This constructor is only called within the simulator.
      *
-     * @param characterData キャラクター情報を格納したCharacterDataクラスのインスタンス
-     * @param motionList    キャラクターの全モーションが格納されたリスト
+     * @param characterData An instance of the CharacterData class that contains character information.
+     * @param motionList    A list that stores all motions of the character.
      * @see CharacterData
      * @see Motion
-     */
+     */ 
     public Character(CharacterData characterData, ArrayList<Motion> motionList) {
         initializeList();
 
@@ -307,10 +306,10 @@ public class Character {
     }
 
     /**
-     * 設定ファイル(gSetting.txt)の情報を用いてキャラクターの画像サイズを初期化する．
+     * Initializes the character's image size using information from the configuration file (gSetting.txt).
      *
-     * @param characterName the character name
-     * @param playerNumber  the character's side flag．{@code true} if the player is P1, or
+     * @param characterName The name of the character.
+     * @param playerNumber  The character's side flag. {@code true} if the player is P1, or
      *                      {@code false} if P2.
      */
     public void initialize(String characterName, boolean playerNumber) {
@@ -335,7 +334,7 @@ public class Character {
     }
 
     /**
-     * リストのデータを初期化する．
+     * Initializes the data in the list.
      */
     public void initializeList() {
         this.inputCommands = new LinkedList<Key>();
@@ -360,7 +359,7 @@ public class Character {
     }
 
     /**
-     * 各ラウンドの開始時にキャラクター情報を初期化する．
+     * Initializes character information at the beginning of each round.
      */
     public void roundInit() {
         if (FlagSetting.limitHpFlag) {
@@ -389,12 +388,12 @@ public class Character {
 
         if (this.playerNumber) {
             this.front = true;
-            // 初期の立ち位置
+            // Initial standing position
             this.x = 100 + this.graphicAdjustInitialX[0];
             this.y = 335;
         } else {
             this.front = false;
-            // 初期の立ち位置
+            // Initial standing position
             this.x = 460 + this.graphicAdjustInitialX[1];
             ;
             this.y = 335;
@@ -402,10 +401,10 @@ public class Character {
     }
 
     /**
-     * 引数として渡されたアクションの情報を，実行中のアクションとしてCharacterインスタンスにセットする．
+     * Sets the information of the provided action as the currently executing action in the Character instance.
      *
-     * @param executeAction 次に実行するアクション
-     * @param resetFlag     現在実行中のアクションを中断させるかどうかのフラグ
+     * @param executeAction The action to be executed next.
+     * @param resetFlag     A flag indicating whether to interrupt the currently executing action.
      */
     public void runAction(Action executeAction, boolean resetFlag) {
         Motion exeMotion = this.motionList.get(executeAction.ordinal());
@@ -625,11 +624,11 @@ public class Character {
 
 
     /**
-     * 攻撃がヒットしたときの処理を行う．
+     * Perform processing when an attack hits.
      *
-     * @param opponent     相手キャラクターのインスタンス
-     * @param attack       自身のAttackインスタンス
-     * @param currentFrame 現在のラウンドのフレーム数
+     * @param opponent     Instance of the opponent character.
+     * @param attack       Instance of the character's Attack.
+     * @param currentFrame Current frame of the current round.
      */
     public void hitAttack(Character opponent, Attack attack, int currentFrame) {
 
@@ -652,7 +651,7 @@ public class Character {
         if (isGuard(attack)) {
             setHp(this.hp - attack.getGuardDamage() - opponent.getExtraDamage());
             setEnergy(this.energy + attack.getGiveEnergy());
-            setSpeedX(direction * attack.getImpactX() / 2); // 通常の半分のノックバック
+            setSpeedX(direction * attack.getImpactX() / 2); // Regular half knockback.
             setRemainingFrame(attack.getGiveGuardRecov());
             opponent.setEnergy(opponent.getEnergy() + attack.getGuardAddEnergy());
 
@@ -660,7 +659,7 @@ public class Character {
                 SoundManager.getInstance().play2(sourceLanding, SoundManager.getInstance().getSoundBuffers().get("WeakGuard.wav"), this.x, this.y, false);
             }
         } else {
-            // 投げ技のときの処理
+            // Handling for throw technique.
             if (attack.getAttackType() == 4) {
                 if (this.state != State.AIR && this.state != State.DOWN) {
                     runAction(Action.THROW_SUFFER, false);
@@ -674,7 +673,7 @@ public class Character {
                     opponent.setEnergy(opponent.getEnergy() + attack.getHitAddEnergy());
                 }
 
-                // 投げ技以外
+                // Handling for non-throw technique.
             } else {
                 setHp(this.hp - attack.getHitDamage() - opponent.getExtraDamage());
                 setEnergy(this.energy + attack.getGiveEnergy());
@@ -682,7 +681,7 @@ public class Character {
                 setSpeedY(attack.getImpactY());
                 opponent.setEnergy(opponent.getEnergy() + attack.getHitAddEnergy());
 
-                // ダウン技の処理
+                // Handling of down technique.
                 if (attack.isDownProp()) {
                     runAction(Action.CHANGE_DOWN, false);
                     setRemainingFrame(this.motionList.get(this.action.ordinal()).getFrameNumber());
@@ -719,10 +718,10 @@ public class Character {
     }
 
     /**
-     * 相手に攻撃を当てられたときにガードが成功しているかどうかを返す．<br>
-     * 成功していた場合は自身をガードの種類に対応したリカバリー状態に変化させる．
+     * Returns whether the guard was successful when being hit by the opponent's attack.<br>
+     * If successful, changes the character's recovery state to the one corresponding to the type of guard.
      *
-     * @param attack 相手のAttackインスタンス
+     * @param attack The opponent's Attack instance
      * @return {@code true} if the guard is successful, {@code false} otherwise
      */
     private boolean isGuard(Attack attack) {
@@ -774,8 +773,8 @@ public class Character {
     }
 
     /**
-     * Characterインスタンスが持つアクション情報を用いて，Attackクラスのインスタンスを生成する．<br>
-     * このメソッドによって攻撃の当たり判定領域が生成される．
+     * Generates an instance of the Attack class using the action information stored in the Character instance.<br>
+     * This method creates the hitbox area for the attack.
      */
     private void createAttackInstance() {
         Motion motion = this.motionList.get(this.action.ordinal());
@@ -793,11 +792,10 @@ public class Character {
     }
 
     /**
-     * 攻撃の経過フレームがアクティブ状態の開始フレーム数になっているかどうかを返す.
+     * Returns whether the elapsed frame of the attack matches the starting frame of the active state.
      *
-     * @param motion 攻撃の総フレーム数やダメージなどの情報を格納したMotionクラスのインスタンス
-     * @return {@code true} 攻撃の経過フレームがアクティブ状態の開始フレーム数である場合，{@code false}
-     * otherwise
+     * @param motion An instance of the Motion class containing information such as total frames and damage of the attack
+     * @return {@code true} if the elapsed frame of the attack matches the starting frame of the active state, {@code false} otherwise
      * @see Motion
      */
     public boolean startActive(Motion motion) {
@@ -824,7 +822,7 @@ public class Character {
     }
 
     /**
-     * キャラクターが床に接しているときに，摩擦の影響を与える．
+     * Applies the effects of friction when the character is in contact with the ground.
      */
     public void frictionEffect() {
         if (getHitAreaBottom() >= GameSetting.STAGE_HEIGHT) {
@@ -837,7 +835,7 @@ public class Character {
     }
 
     /**
-     * キャラクターが空中にいるときに, 重力の影響を与える．
+     * Applies the effects of gravity when the character is in the air.
      */
     public void gravityEffect() {
         if (getHitAreaBottom() >= GameSetting.STAGE_HEIGHT) {
@@ -1082,18 +1080,18 @@ public class Character {
     }
 
     /**
-     * キャラクターの向きを決定する時にx座標を調整するために用いる水平方向の移動量を返す.
+     * Returns the horizontal movement amount used to adjust the x-coordinate when determining the character's orientation.
      *
-     * @return キャラクターの向きを決定する時にx座標を調整するために用いる水平方向の移動量
+     * @return the horizontal movement amount used to adjust the x-coordinate when determining the character's orientation
      */
     public int getGraphicAdjustX() {
         return this.graphicAdjustX;
     }
 
     /**
-     * キャラクターの初期位置を決定する時にx座標を調整するために用いる水平方向の移動量を返す.
+     * Returns the horizontal movement amount used to adjust the x-coordinate when determining the character's initial position.
      *
-     * @return キャラクターの向きを決定する時にx座標を調整するために用いる水平方向の移動量
+     * @return the horizontal movement amount used to adjust the x-coordinate when determining the character's initial position
      */
     public int[] getGraphicAdjustInitialX() {
         return this.graphicAdjustInitialX;
@@ -1118,9 +1116,9 @@ public class Character {
     }
 
     /**
-     * キャラクターの全モーションを格納したリストを返す．
+     * Returns a list containing all motions of the character.
      *
-     * @return キャラクターの全モーションを格納したリスト
+     * @return a list containing all motions of the character
      */
     public ArrayList<Motion> getMotionList() {
         ArrayList<Motion> temp = new ArrayList<Motion>();
@@ -1177,31 +1175,31 @@ public class Character {
     }
 
     /**
-     * 攻撃の連続ヒット回数を返す．
+     * Returns the count of consecutive hit attacks.
      *
-     * @return 攻撃の連続ヒット回数
+     * @return the count of consecutive hit attacks
      */
     public int getHitCount() {
         return this.hitCount;
     }
 
     /**
-     * 攻撃が相手に当たった最後のフレームを返す.
+     * Returns the frame when the attack last hit the opponent.
      *
-     * @return 攻撃が相手に当たった最後のフレーム
+     * @return the frame when the attack last hit the opponent
      */
     public int getLastHitFrame() {
         return this.lastHitFrame;
     }
 
     /**
-     * 攻撃の連続ヒット数に応じたエクストラダメージを返す．<br>
+     * Returns extra damage based on the count of consecutive hit attacks.
      *
-     * @return 攻撃の連続ヒット数に応じたエクストラダメージ
+     * @return extra damage based on the count of consecutive hit attacks
      */
     public int getExtraDamage() {
-        int requireHit = 4; // ボーナスダメージに必要な最小限のヒット数
-        int damage = 5; // ボーナスダメージ
+        int requireHit = 4; // Minimum number of hits required for bonus damage
+        int damage = 5; // Bonus Damage
 
         return this.hitCount < requireHit ? 0 : damage * requireHit / this.hitCount;
     }
@@ -1379,18 +1377,18 @@ public class Character {
     }
 
     /**
-     * 攻撃の連続ヒット回数をセットする．
+     * Sets the count of consecutive hit attacks.
      *
-     * @param hitCount 攻撃の連続ヒット回数
+     * @param hitCount the count of consecutive hit attacks
      */
     public void setHitCount(int hitCount) {
         this.hitCount = hitCount;
     }
 
     /**
-     * 現在のフレームを攻撃が相手に当たった最後のフレームとしてセットする.
+     * Sets the frame when the attack last hit the opponent.
      *
-     * @param currentFrame 現在のフレーム
+     * @param currentFrame the current frame
      */
     public void setLastHitFrame(int currentFrame) {
         this.lastHitFrame = currentFrame;
@@ -1430,10 +1428,9 @@ public class Character {
     }
 
     /**
-     * シミュレータ内での処理かどうかを返す．
+     * Checks if the process is executed in the simulator.
      *
-     * @return {@code true} if the process is executed in the simulator,
-     * {@code false} otherwise.
+     * @return {@code true} if the process is executed in the simulator, {@code false} otherwise
      */
     public boolean isSimulateProcess() {
         return this.isSimulateProcess;

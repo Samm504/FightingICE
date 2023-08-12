@@ -1,10 +1,10 @@
 package enumerate;
 
 /**
- * 背景の種類を定義するクラス．
+ * Class that defines the types of backgrounds.
  */
 public enum BackgroundType {
-	IMAGE,
-	BLACK,
-	GREY,
+	IMAGE, // Background type with an image
+	BLACK, // Black background type
+	GREY,  // Grey background type
 }

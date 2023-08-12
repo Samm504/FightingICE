@@ -19,7 +19,7 @@ import struct.FrameData;
 import struct.Key;
 
 /**
- * 対戦処理及びそれに伴う攻撃やキャラクターのパラメータの更新処理を扱うクラス．
+ * Class that handles combat processing and updates of attack and character parameters.
  */
 public class Fighting {
 
@@ -46,18 +46,18 @@ public class Fighting {
 	private Deque<KeyData> inputCommands;
 
 	/**
-	 * 攻撃が当たった時に表示するエフェクトや, アッパーのエフェクトの情報を格納するリスト．<br>
-	 * Index 0 is P1, index 1 is P2.
-	 *
-	 * @see HitEffect
-	 */
+     * List to store hit effects and upper effects when an attack hits or is an upper attack.
+     * Index 0 is P1, index 1 is P2.
+     *
+     * @see HitEffect
+     */
 	private LinkedList<LinkedList<HitEffect>> hitEffects;
 
 	/**
-	 * キー入力とそれに対応するアクションを管理するクラス変数．
-	 *
-	 * @see CommandTable
-	 */
+     * Class variable that manages key input and its corresponding actions.
+     *
+     * @see CommandTable
+     */
 	protected CommandTable commandTable;
 
 
@@ -84,8 +84,8 @@ public class Fighting {
 	}
 	
 	/**
-	 * P1, P2のキャラクター情報とエフェクトを格納するリストの初期化を行う．
-	 */
+     * Initializes P1 and P2 character information and effect lists.
+     */
 	public void initialize() {
 		for (int i = 0; i < 2; i++) {
 			this.playerCharacters[i] = new Character();
@@ -95,51 +95,39 @@ public class Fighting {
 	}
 
 	/**
-	 * P1, P2のキー入力を基に, 1フレーム分の対戦処理を行う. <br>
-	 * 処理順序は以下の通りである．<br>
-	 * <ol>
-	 * <li>キー入力を基に, アクションを実行</li>
-	 * <li>攻撃の当たり判定の処理, 及びそれに伴うキャラクターのHPなどのパラメータの更新</li>
-	 * <li>攻撃のパラメータの更新</li>
-	 * <li>キャラクターの状態の更新</li>
-	 * </ol>
-	 *
-	 * @param currentFrame
-	 *            現在のフレーム
-	 * @param keyData
-	 *            P1, P2のキー入力． Index 0 is P1, index 1 is P2.
-	 */
+     * Processes one frame of combat for P1 and P2 based on key input.
+     *
+     * @param currentFrame Current frame
+     * @param keyData      Key input for P1 and P2. Index 0 is P1, index 1 is P2.
+     */
 	public void processingFight(int currentFrame, KeyData keyData) {
 
-		// 1. 入力されたキーを基に, アクションを実行
+		// 1. Execute actions based on key input
 		processingCommands(currentFrame, keyData);
-		// 2. 当たり判定の処理
+		// 2. Handle hit detection and update character parameters
 		calculationHit(currentFrame);
-		// 3. 攻撃のパラメータの更新
+		// 3. Update attack parameters
 		updateAttackParameter();
-		// 4. キャラクターの状態の更新
+		// 4. Update character states
 		updateCharacter();
 
 	}
 
 	/**
-	 * キー入力を基にアクションを実行する．
-	 *
-	 * @param currentFrame
-	 *            現在のフレーム
-	 * @param keyData
-	 *            P1, P2のキー入力．<br>
-	 *            Index 0 is P1, index 1 is P2.
-	 */
+     * Executes actions based on key input.
+     *
+     * @param currentFrame Current frame
+     * @param keyData      Key input for P1 and P2. Index 0 is P1, index 1 is P2.
+     */
 	protected void processingCommands(int currentFrame, KeyData keyData) {
 		this.inputCommands.addLast(keyData);
 
-		// リストのサイズが上限(INPUT_LIMIT)を超えていたら, 最も古いデータを削除する
+		// Remove oldest data if the list size exceeds the limit (INPUT_LIMIT)
 		while (this.inputCommands.size() > GameSetting.INPUT_LIMIT) {
 			this.inputCommands.removeFirst();
 		}
 
-		// アクションの実行
+		// Execute actions
 		for (int i = 0; i < 2; i++) {
 			if (!this.inputCommands.isEmpty()) {
 				Action executeAction = this.commandTable.interpretationCommandFromKeyData(this.playerCharacters[i],
@@ -152,15 +140,14 @@ public class Fighting {
 	}
 
 	/**
-	 * 攻撃の当たり判定の処理, 及びそれに伴うキャラクターの体力などのパラメータの更新を行う．
-	 *
-	 * @param currentFrame
-	 *            現在のフレーム
-	 */
+     * Handles hit detection, updates character parameters, and applies effects.
+     *
+     * @param currentFrame Current frame
+     */
 	protected void calculationHit(int currentFrame) {
 		boolean[] isHit = { false, false };
 
-		// 波動拳の処理
+		// Process projectiles
 		int dequeSize = this.projectileDeque.size();
 		for (int i = 0; i < dequeSize; i++) {
 			LoopEffect projectile = this.projectileDeque.removeFirst();
@@ -175,7 +162,7 @@ public class Fighting {
 			}
 		}
 
-		// 通常攻撃の処理
+		// Process normal attacks
 		for (int i = 0; i < 2; i++) {
 			int opponentIndex = i == 0 ? 1 : 0;
 			Attack attack = this.playerCharacters[i].getAttack();
@@ -187,19 +174,19 @@ public class Fighting {
 			}
 		}
 
-		// エフェクト関係の処理. Windowが生成されているときのみ行う.
+		// Process effects (e.g., hit effects, upper effects)
 		for (int i = 0; i < 2; i++) {
 			if (FlagSetting.enableWindow) {
 				if (this.playerCharacters[i].getAttack() != null) {
-					// 現在のコンボに応じたエフェクトをセット
+					// Set effect based on the current combo
 					int comboState = Math.max(this.playerCharacters[i].getHitCount() - 1, 0);
-					// 4Hit以上であれば,エフェクトは4ヒット目のもの固定
+					// Limit effect to 4th hit if combo is 4 or more
 					comboState = Math.min(comboState, 3);
 
 					Image[] effect = GraphicManager.getInstance().getHitEffectImageContaier()[comboState];
 					this.hitEffects.get(i).add(new HitEffect(this.playerCharacters[i].getAttack(), effect, isHit[i]));
 
-					// アッパーの処理
+					// Process upper attacks
 					if (playerCharacters[i].getAction() == Action.STAND_F_D_DFB) {
 						Image[] upper = GraphicManager.getInstance().getUpperImageContainer()[i];
 						Motion motion = this.playerCharacters[i].getMotionList().get(Action.STAND_F_D_DFB.ordinal());
@@ -224,7 +211,7 @@ public class Fighting {
 	}
 
 	/**
-	 * 攻撃のパラメータの更新を行う.
+	 * Update attack parameters.
 	 */
 	protected void updateAttackParameter() {
 		// Updates the parameters of all of projectiles appearing in the stage
@@ -250,7 +237,7 @@ public class Fighting {
 	}
 
 	/**
-	 * キャラクターの状態や, エフェクトの更新を行う.
+	 * Update character states and effects.
 	 */
 	protected void updateCharacter() {
 		for (int i = 0; i < 2; ++i) {
@@ -305,7 +292,7 @@ public class Fighting {
 	}
 
 	/**
-	 * P1とP2のキャラクターの水平方向のスピードに応じて, 相手を押す処理を行う．
+	 * Push the opponent characters based on the horizontal speed of P1 and P2.
 	 */
 	protected void detectionPush() {
 		if (isCollision()) {
@@ -326,7 +313,7 @@ public class Fighting {
 	}
 
 	/**
-	 * P1とP2のキャラクター位置が重なってしまった場合, 重ならないように各キャラクターの座標の更新処理を行う．
+	 * If the positions of characters P1 and P2 overlap, update the coordinates of each character to prevent overlap.
 	 */
 	protected void detectionFusion() {
 		if (isCollision()) {
@@ -351,9 +338,9 @@ public class Fighting {
 	}
 
 	/**
-	 * P1とP2のキャラクターが衝突している状態かどうかを判定する．
+	 * Determine if characters P1 and P2 are in a collision state.
 	 *
-	 * @return {@code true} 両者が衝突している， {@code false} otherwise
+	 * @return {@code true} if both characters are colliding, {@code false} otherwise
 	 */
 	private boolean isCollision() {
 		return this.playerCharacters[0].getHitAreaLeft() <= this.playerCharacters[1].getHitAreaRight()
@@ -363,7 +350,7 @@ public class Fighting {
 	}
 
 	/**
-	 * ステージの端からキャラクターがはみ出ないように, 各キャラクターの座標の更新処理を行う．
+	 * Update the coordinates of each character to prevent them from going off the stage's edge.
 	 */
 	protected void decisionEndStage() {
 		for (int i = 0; i < 2; ++i) {
@@ -384,14 +371,11 @@ public class Fighting {
 	}
 
 	/**
-	 * 次に実行予定のアクションが実行可能かどうかを返す．
+	 * Determine whether the next planned action is executable.
 	 *
-	 * @param character
-	 *            アクションを実行するキャラクターのインスタンス
-	 * @param nextAction
-	 *            次に実行予定のアクション
-	 *
-	 * @return {@code true} 実行可能である，{@code false} otherwise
+	 * @param character The instance of the character performing the action.
+	 * @param nextAction The next planned action.
+	 * @return {@code true} if the action is executable, {@code false} otherwise.
 	 *
 	 * @see Character
 	 * @see Action
@@ -413,14 +397,12 @@ public class Fighting {
 		}
 	}
 
-	/**
-	 * 攻撃が相手に当たったかどうかを判定する．
+		/**
+	 * Determine whether the attack has hit the opponent.
 	 *
-	 * @param opponent
-	 *            相手キャラクター.
-	 * @param attack
-	 *            自身が出した攻撃.
-	 * @return {@code true} 攻撃が当たった場合，{@code false} otherwise
+	 * @param opponent The opponent character.
+	 * @param attack The attack that was launched.
+	 * @return {@code true} if the attack hit the opponent, {@code false} otherwise.
 	 *
 	 * @see Character
 	 * @see Attack
@@ -439,24 +421,24 @@ public class Fighting {
 	}
 
 	/**
-	 * P1, P2のキャラクター情報が格納された配列を返す．
+	 * Returns an array containing information about characters P1 and P2.
 	 *
-	 * @return P1, P2のキャラクター情報が格納された配列
+	 * @return An array containing information about characters P1 and P2.
 	 */
+
 	public Character[] getCharacters() {
 		return this.playerCharacters.clone();
 	}
 
 	/**
-	 * 現在のフレームにおけるゲーム情報を格納したフレームデータを作成する．<br>
-	 * 両キャラクターの情報, 現在のフレーム数, 現在のラウンド, 波動拳の情報を格納したリスト, 両キャラクターのキー情報を持つ．
+	 * Creates a frame data containing game information for the current frame.<br>
+	 * It includes information about both characters, the current frame number, the current round,
+	 * a list of Hadouken (energy wave) information for both characters, and key information for both characters.
 	 *
-	 * @param nowFrame
-	 *            現在のフレーム
-	 * @param round
-	 *            現在のラウンド
+	 * @param nowFrame The current frame.
+	 * @param round The current round.
 	 *
-	 * @return 現在のフレームにおけるゲーム情報を格納したフレームデータ
+	 * @return A frame data containing game information for the current frame.
 	 *
 	 * @see KeyData
 	 * @see FrameData
@@ -474,7 +456,7 @@ public class Fighting {
 	}
 
 	/**
-	 * ラウンド開始時にキャラクター情報を初期化し,リストやキューの中身を空にする．
+	 * Initializes character information and clears the contents of lists and queues at the start of a round.
 	 */
 	public void initRound() {
 		for (int i = 0; i < 2; i++) {
@@ -487,9 +469,9 @@ public class Fighting {
 	}
 
 	/**
-	 * P1, P2のエフェクトのリストを返す．
+	 * Returns the list of effects for P1 and P2.
 	 *
-	 * @return P1, P2のエフェクトのリスト
+	 * @return The list of effects for P1 and P2.
 	 */
 	public LinkedList<LinkedList<HitEffect>> getHitEffectList() {
 		return new LinkedList<LinkedList<HitEffect>>(this.hitEffects);

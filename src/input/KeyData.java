@@ -3,18 +3,18 @@ package input;
 import struct.Key;
 
 /**
- * 同一フレーム内で各プレイヤーが入力したKeyを管理するクラス．
+ * A class for managing the Key input from each player in the same frame.
  */
 public class KeyData {
 
 	/**
-	 * P1, P2の入力キーを格納した配列<br>
-	 * Index 0 is P1, index 1 is P2.
+	 * An array to store the input Keys for P1 and P2.
+	 * Index 0 is for P1, and index 1 is for P2.
 	 */
 	private Key[] keys;
 
 	/**
-	 * クラスコンストラクタ．
+	 * Class constructor.
 	 */
 	public KeyData() {
 		this.keys = new Key[2];
@@ -24,11 +24,11 @@ public class KeyData {
 	}
 
 	/**
-	 * 各プレイヤーのKey入力からKeyDataを作成するクラスコンストラクタ．
+	 * Class constructor to create a KeyData instance from the input Keys of each player.
 	 *
 	 * @param keys
-	 *            P1, P2の入力キーを格納した配列.<br>
-	 *            Index 0 is P1, index 1 is P2.
+	 *            An array containing the input Keys for P1 and P2.
+	 *            Index 0 is for P1, and index 1 is for P2.
 	 */
 	public KeyData(Key[] keys) {
 		this.keys = new Key[keys.length];
@@ -38,12 +38,12 @@ public class KeyData {
 	}
 
 	/**
-	 * 引数で渡されたKeyDataのインスタンスのコピーを生成するクラスコンストラクタ．<br>
-	 * 引数がnullならキー配列を初期化して新たなインスタンスを生成する．
+	 * Class constructor to generate a copy of the provided KeyData instance.
+	 * If the argument is null, it initializes the Key array and creates a new instance.
 	 *
 	 * @param keyData
-	 *            P1, P2の入力キー情報.<br>
-	 *            Index 0 is P1, index 1 is P2.
+	 *            Input key information for P1 and P2.
+	 *            Index 0 is for P1, and index 1 is for P2.
 	 */
 	public KeyData(KeyData keyData) {
 		if (keyData != null) {
@@ -60,10 +60,10 @@ public class KeyData {
 	}
 
 	/**
-	 * P1, P2の入力キーを格納した配列を返す．
+	 * Get an array containing the input Keys for P1 and P2.
 	 *
-	 * @return P1, P2の入力キーを格納した配列.<br>
-	 *         Index 0 is P1, index 1 is P2.
+	 * @return An array containing the input Keys for P1 and P2.
+	 *         Index 0 is for P1, and index 1 is for P2.
 	 */
 	public Key[] getKeys() {
 		return this.keys.clone();

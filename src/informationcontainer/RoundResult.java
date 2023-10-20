@@ -4,27 +4,27 @@ import setting.FlagSetting;
 import struct.FrameData;
 
 /**
- * ラウンドの結果を処理するクラス．
+ * Class for processing round results.
  */
 public class RoundResult {
 
 	/**
-	 * 現在のラウンド数．
+	 * Current round number.
 	 */
 	private int currentRound;
 
 	/**
-	 * P1とP2の残りHPを格納する配列．
+	 * Array to store the remaining HP of P1 and P2.
 	 */
 	private int[] remainingHPs;
 
 	/**
-	 * ラウンドの経過フレーム数．
+	 * Number of frames elapsed in the round.
 	 */
 	private int elapsedFrame;
 
 	/**
-	 * クラスコンストラクタ．
+	 * Class constructor.
 	 */
 	public RoundResult() {
 		this.currentRound = -1;
@@ -33,14 +33,14 @@ public class RoundResult {
 	}
 
 	/**
-	 * 指定された値でRoundResultを更新するクラスコンストラクタ．
+	 * Class constructor to update RoundResult with specified values.
 	 *
 	 * @param round
-	 *            ラウンド数
+	 *            Round number
 	 * @param hp
-	 *            P1,P2の残りHP
+	 *            Remaining HP of P1 and P2
 	 * @param frame
-	 *            経過フレーム数
+	 *            Elapsed frame count
 	 */
 	public RoundResult(int round, int[] hp, int frame) {
 		this.currentRound = round;
@@ -49,10 +49,10 @@ public class RoundResult {
 	}
 
 	/**
-	 * 引数として渡されたフレームデータから結果に関する情報を取得し，RoundResultを更新するクラスコンストラクタ．
+	 * Class constructor to update RoundResult with information related to results obtained from the provided frame data.
 	 *
 	 * @param frameData
-	 *            フレーム内のゲームデータ
+	 *            Game data within the frame
 	 */
 	public RoundResult(FrameData frameData) {
 		this.currentRound = frameData.getRound();
@@ -61,32 +61,32 @@ public class RoundResult {
 
 		if (FlagSetting.limitHpFlag) {
 			this.remainingHPs[0] = Math.max(this.remainingHPs[0], 0);
-			this.remainingHPs[1] = Math.max(this.remainingHPs[1], 0);
+			this.remainingHPs[1] = Math max(this.remainingHPs[1], 0);
 		}
 	}
 
 	/**
-	 * 現在のラウンド数を返す．
+	 * Get the current round number.
 	 *
-	 * @return 現在のラウンド数
+	 * @return Current round number
 	 */
 	public int getRound() {
 		return this.currentRound;
 	}
 
 	/**
-	 * P1,P2の残りHPを格納した配列を返す．
+	 * Get an array containing the remaining HP of P1 and P2.
 	 *
-	 * @return P1,P2の残りHPを格納した配列
+	 * @return Array containing the remaining HP of P1 and P2
 	 */
 	public int[] getRemainingHPs() {
 		return this.remainingHPs.clone();
 	}
 
 	/**
-	 * 経過フレーム数を返す．
+	 * Get the number of elapsed frames.
 	 *
-	 * @return 経過フレーム数
+	 * @return Number of elapsed frames
 	 */
 	public int getElapsedFrame() {
 		return this.elapsedFrame;

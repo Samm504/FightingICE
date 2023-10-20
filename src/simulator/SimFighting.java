@@ -19,27 +19,27 @@ import struct.FrameData;
 import struct.Key;
 
 /**
- * シミュレーション中の対戦処理やキャラクター情報の更新を行うクラス．
+ * Class that handles battle processing and character information updates during simulation.
  */
 public class SimFighting extends Fighting {
 
 	/**
-	 * キー入力．
+	 * Key inputs.
 	 */
 	private ArrayList<Deque<Key>> inputKeys;
 
 	/**
-	 * 入力されたアクション．
+	 * Input actions.
 	 */
 	private ArrayList<Deque<Action>> inputActions;
 
 	/**
-	 * CommandCenterクラスのインスタンスを格納する配列．
+	 * Array to store instances of the CommandCenter class.
 	 */
 	private CommandCenter[] commandCenter;
 
 	/**
-	 * クラスコンストラクタ．
+	 * Class constructor.
 	 */
 	public SimFighting() {
 		this.playerCharacters = new Character[2];
@@ -52,17 +52,16 @@ public class SimFighting extends Fighting {
 	}
 
 	/**
-	 * 初期化処理を行う．
+	 * Perform initialization.
 	 *
 	 * @param motionList
-	 *            P1とP2のモーションを格納したリスト
+	 *            List containing motions for P1 and P2.
 	 * @param actionList
-	 *            P1とP2のアクションを格納したリスト
+	 *            List containing actions for P1 and P2.
 	 * @param frameData
-	 *            frame data at the start of simulation
+	 *            Frame data at the start of simulation.
 	 * @param playerNumber
-	 *            boolean value which identifies P1/P2. {@code true} if the
-	 *            player is P1, or {@code false} if P2.
+	 *            Boolean value identifying P1/P2. {@code true} if the player is P1, or {@code false} if P2.
 	 */
 	public void initialize(ArrayList<ArrayList<Motion>> motionList, ArrayList<Deque<Action>> actionList,
 			FrameData frameData, boolean playerNumber) {
@@ -84,31 +83,31 @@ public class SimFighting extends Fighting {
 	}
 
 	/**
-	 * 1フレーム分の対戦処理を行う. <br>
-	 * 処理順序は以下の通りである．<br>
+	 * Perform battle processing for one frame. <br>
+	 * The processing order is as follows: <br>
 	 * <ol>
-	 * <li>キー入力を基に, アクションを実行</li>
-	 * <li>攻撃の当たり判定の処理, 及びそれに伴うキャラクターのHPなどのパラメータの更新</li>
-	 * <li>攻撃のパラメータの更新</li>
-	 * <li>キャラクターの状態の更新</li>
+	 * <li>Execute actions based on key inputs.</li>
+	 * <li>Handle collision detection of attacks and update parameters such as character HP.</li>
+	 * <li>Update attack parameters.</li>
+	 * <li>Update character states.</li>
 	 * </ol>
 	 *
 	 * @param currentFrame
-	 *            現在のフレーム
+	 *            Current frame.
 	 */
 	public void processingFight(int currentFrame) {
-		// 1. コマンドの実行・対戦処理
+		// 1. Execute commands and battle processing
 		processingCommands();
-		// 2. 当たり判定の処理
+		// 2. Handle collision detection
 		calculationHit(currentFrame);
-		// 3. 攻撃パラメータの更新
+		// 3. Update attack parameters
 		updateAttackParameter();
-		// 4. キャラクター情報の更新
+		// 4. Update character information
 		updateCharacter();
 	}
 
 	/**
-	 * シミュレーション開始時に渡されたキー入力とアクションを基に，アクションを実行する．
+	 * Execute actions based on the key inputs and actions provided at the start of the simulation.
 	 */
 	public void processingCommands() {
 
@@ -116,7 +115,7 @@ public class SimFighting extends Fighting {
 			Deque<Key> keyList = this.inputKeys.get(i);
 			Deque<Action> actList = this.inputActions.get(i);
 
-			if (keyList.size() > GameSetting.INPUT_LIMIT-1) {
+			if (keyList.size() > GameSetting.INPUT_LIMIT - 1) {
 				keyList.removeFirst();
 			}
 
@@ -157,7 +156,7 @@ public class SimFighting extends Fighting {
 	protected void calculationHit(int currentFrame) {
 		boolean[] isHit = { false, false };
 
-		// 波動拳の処理
+		// Handle projectile attacks
 		int dequeSize = this.projectileDeque.size();
 		for (int i = 0; i < dequeSize; i++) {
 			LoopEffect projectile = this.projectileDeque.removeFirst();
@@ -173,15 +172,15 @@ public class SimFighting extends Fighting {
 			}
 		}
 
-		// 通常攻撃の処理
+		// Handle normal attacks
 		for (int i = 0; i < 2; i++) {
 			int opponentIndex = i == 0 ? 1 : 0;
 			Attack attack = this.playerCharacters[i].getAttack();
 
 			if (detectionHit(this.playerCharacters[opponentIndex], attack)) {
 				isHit[i] = true;
-				// HP等のパラメータの更新
-				// Fightingと共通してcharacterを用いているため、音が鳴る処理が実行されてしまう
+				// Update parameters such as HP
+				// The 'character' object is shared with 'Fighting', so sound effects are executed
 				this.playerCharacters[opponentIndex].hitAttack(this.playerCharacters[i], attack, currentFrame);
 			}
 		}
@@ -200,7 +199,7 @@ public class SimFighting extends Fighting {
 
 	@Override
 	protected void updateAttackParameter() {
-		// Updates the parameters of all of projectiles appearing in the stage
+		 // Updates the parameters of all projectiles appearing in the stage
 		int dequeSize = this.projectileDeque.size();
 		for (int i = 0; i < dequeSize; i++) {
 
@@ -210,7 +209,7 @@ public class SimFighting extends Fighting {
 			}
 		}
 
-		// Updates the parameters of all of attacks excepted projectile
+		// Updates the parameters of all attacks except projectiles
 		// conducted by both characters
 		for (int i = 0; i < 2; ++i) {
 			if (this.playerCharacters[i].getAttack() != null) {
@@ -224,10 +223,10 @@ public class SimFighting extends Fighting {
 	@Override
 	protected void updateCharacter() {
 		for (int i = 0; i < 2; ++i) {
-			// update each character.
+			// Update each character
 			this.playerCharacters[i].update();
 
-			// enque object attack if the data is missile decision
+			// Enqueue object attack if the data is a missile decision
 			if (this.playerCharacters[i].getAttack() != null) {
 				if (this.playerCharacters[i].getAttack().isProjectile()) {
 
@@ -236,16 +235,16 @@ public class SimFighting extends Fighting {
 				}
 			}
 
-			// change player's direction
+			// Change player's direction
 			if (playerCharacters[i].isControl()) {
 				playerCharacters[i].frontDecision(playerCharacters[i == 0 ? 1 : 0].getHitAreaCenterX());
 			}
 		}
-		// run pushing effect
+		// Run pushing effect
 		detectionPush();
-		// run collision of first and second character.
+		// Run collision of the first and second character.
 		detectionFusion();
-		// run effect when character's are in the end of stage.
+		// Run effect when characters are at the end of the stage.
 		decisionEndStage();
 	}
 
@@ -264,5 +263,4 @@ public class SimFighting extends Fighting {
 
 		return new FrameData(characterData, nowFrame, round, newAttackDeque);
 	}
-
 }

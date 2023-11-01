@@ -1,43 +1,44 @@
 package informationcontainer;
 
 /**
- * メニュー画面の項目について扱うクラス．
+ * Class for handling menu screen items.
  */
 public class MenuItem {
 
 	/**
-	 * メニュー項目の文字．
+	 * Text of the menu item.
 	 */
 	private String string;
 
 	/**
-	 * メニュー項目のx座標．
+	 * X-coordinate of the menu item.
 	 */
 	private int coordinateX;
 
 	/**
-	 * メニュー項目のy座標．
+	 * Y-coordinate of the menu item.
 	 */
 	private int coordinateY;
 
 	/**
-	 * カーソル位置の番号．
+	 * Number representing the cursor position.
 	 */
 	private int cursorPosition;
 
 	/**
-	 * MenuItemクラスのインスタンスを生成するためのクラスコンストラクタ．
-	 * メニュー項目として表示させる文字，メニュー項目を表示させる場所のX座標とY座標，
-	 * 選択カーソルを表示させる場所を指定するためのカーソル位置番号を用いてインスタンスの初期化を行う．
+	 * Class constructor to create an instance of the MenuItem class. 
+	 * Initializes the instance with the specified menu item text, 
+	 * X and Y coordinates for displaying the menu item, 
+	 * and a cursor position number for displaying the selection cursor.
 	 *
 	 * @param string
-	 *            メニュー項目の文字
+	 *            Text of the menu item
 	 * @param coordinateX
-	 *            メニュー項目のx座標
+	 *            X-coordinate of the menu item
 	 * @param coordinateY
-	 *            メニュー項目のy座標
+	 *            Y-coordinate of the menu item
 	 * @param cursorPosition
-	 *            カーソル位置番号
+	 *            Cursor position number
 	 */
 	public MenuItem(String string, int coordinateX, int coordinateY, int cursorPosition) {
 		this.string = string;
@@ -47,36 +48,36 @@ public class MenuItem {
 	}
 
 	/**
-	 * メニュー項目の文字を返す．
+	 * Get the text of the menu item.
 	 *
-	 * @return メニュー項目の文字
+	 * @return Text of the menu item
 	 */
 	public String getString() {
 		return this.string;
 	}
 
 	/**
-	 * メニュー項目のx座標を返す．
+	 * Get the X-coordinate of the menu item.
 	 *
-	 * @return メニュー項目のx座標
+	 * @return X-coordinate of the menu item
 	 */
 	public int getCoordinateX() {
 		return this.coordinateX;
 	}
 
 	/**
-	 * メニュー項目のy座標を返す．
+	 * Get the Y-coordinate of the menu item.
 	 *
-	 * @return メニュー項目のy座標
+	 * @return Y-coordinate of the menu item
 	 */
 	public int getCoordinateY() {
 		return this.coordinateY;
 	}
 
 	/**
-	 * メニュー項目のカーソル位置番号を返す．
+	 * Get the cursor position number of the menu item.
 	 *
-	 * @return メニュー項目のカーソル位置番号
+	 * @return Cursor position number of the menu item
 	 */
 	public int getCursorPosition() {
 		return this.cursorPosition;

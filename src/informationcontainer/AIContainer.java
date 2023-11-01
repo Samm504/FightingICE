@@ -1,25 +1,25 @@
-package informationcontainer;
+package information container;
 
 import java.util.ArrayList;
 
 /**
- * AIフォルダに格納されているAIに関するデータを扱うクラス．<br>
- * 総当り対戦のオプション(-a)が指定されたときに用いられる.
+ * A class that handles AI-related data stored in the AI ​​folder. <br>
+ * Used when the round robin option (-a) is specified.
  */
 public class AIContainer {
 
 	/**
-	 * AIフォルダの全AIを格納するリスト．
+	 * A list that stores all AIs in the AI ​​folder.
 	 */
 	public static ArrayList<String> allAINameList = new ArrayList<String>();
 
 	/**
-	 * P1のAIを指定するインデックス．
+	 * Index specifying AI of P1.
 	 */
 	public static int p1Index = 0;
 
 	/**
-	 * P2のAIを指定するインデックス．
+	 * Index specifying AI of P2.
 	 */
 	public static int p2Index = 0;
 }

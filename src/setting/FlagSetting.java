@@ -1,77 +1,77 @@
 package setting;
 
 /**
- * ゲームの機能に関するフラグを扱うクラス．
+ * A class that manages flags related to the functionality of the game.
  */
 public class FlagSetting {
 
     /**
-     * 繰り返し対戦を行うかどうかのフラグ．
+     * Flag to determine whether to conduct repeated battles.
      */
     public static boolean automationFlag = false;
 
     /**
-     * AIの全組み合わせの対戦を行うかどうかのフラグ．
+     * Flag to determine whether to conduct battles for all AI combinations.
      */
     public static boolean allCombinationFlag = false;
 
     /**
-     * 背景画像を使用するかどうかのフラグ．
+     * Flag to determine whether to use background images.
      */
     public static boolean enableBackground = true;
 
     /**
-     * Pythonを使用するかどうかのフラグ．
+     * Flag to determine whether to use Python integration.
      */
     public static boolean py4j = false;
 
     /**
-     * アクションを行った回数をログに出力するかどうかのフラグ．
+     * Flag to determine whether to log the number of actions performed.
      */
     public static boolean debugActionFlag = false;
 
     /**
-     * 未使用．
+     * Not used.
      */
     public static boolean debugFrameDataFlag = false;
 
     /**
-     * トレーニングモードを使用するかどうかのフラグ．
+     * Flag to determine whether to use training mode.
      */
     public static boolean trainingModeFlag = false;
 
     /**
-     * P1,P2に最大HPを設定するかどうかのフラグ．
+     * Flag to determine whether to set maximum HP for P1 and P2.
      */
     public static boolean limitHpFlag = false;
 
     /**
-     * 音をミュートにするかどうかのフラグ．
+     * Flag to determine whether to mute the audio.
      */
     public static boolean muteFlag = false;
 
     /**
-     * jsonファイルに試合データを出力するかどうかのフラグ．
+     * Flag to determine whether to output match data to a JSON file.
      */
     public static boolean jsonFlag = false;
 
     /**
-     * エラーログを出力するかどうかのフラグ．
+     * Flag to determine whether to output error logs.
      */
     public static boolean outputErrorAndLogFlag = false;
 
     /**
-     * FastModeで起動するかどうかのフラグ．
+     * Flag to determine whether to launch in Fast Mode.
      */
     public static boolean fastModeFlag = false;
 
     /**
-     * ゲームウィンドウを生成するかどうかのフラグ．
+     * Flag to determine whether to create a game window.
      */
     public static boolean enableWindow = true;
 
     /**
-     * ラウンド終了時にスローモーションを発生させるかどうかのフラグ
+     * Flag to determine whether to trigger slow motion at the end of a round.
      */
     public static boolean slowmotion = false;
     

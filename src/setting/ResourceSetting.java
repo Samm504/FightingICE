@@ -1,53 +1,52 @@
 package setting;
 
 /**
- * 画像やサウンドなど，リソースファイルに関する設定を扱うクラス．
+ * A class that handles settings related to resource files such as images and sounds.
  */
 public class ResourceSetting {
 
-	/**
-	 * 発射物の画像が格納されているディレクトリ．
-	 */
-	public static final String PROJECTILE_DIRECTORY = "hadouken/";
+    /**
+     * Directory where projectile images are stored.
+     */
+    public static final String PROJECTILE_DIRECTORY = "hadouken/";
 
-	/**
-	 * スーパースキルの画像が格納されているディレクトリ．
-	 */
-	public static final String SUPER_DIRECTORY = "super/";
+    /**
+     * Directory where super skill images are stored.
+     */
+    public static final String SUPER_DIRECTORY = "super/";
 
-	/**
-	 * アッパースキルの画像が格納されているディレクトリ．
-	 */
-	public static final String UPPER_DIRECTORY = "upper/";
+    /**
+     * Directory where upper skill images are stored.
+     */
+    public static final String UPPER_DIRECTORY = "upper/";
 
-	/**
-	 * ヒットエフェクトの画像が格納されているディレクトリ．
-	 */
-	public static final String HIT_DIRECTORY = "hitEffect/";
+    /**
+     * Directory where hit effect images are stored.
+     */
+    public static final String HIT_DIRECTORY = "hitEffect/";
 
-	/**
-	 * カウンターテキストの画像が格納されているディレクトリ．
-	 */
-	public static final String COUNTER_DIRECTORY = "counter/";
+    /**
+     * Directory where counter text images are stored.
+     */
+    public static final String COUNTER_DIRECTORY = "counter/";
 
-	/**
-	 * ヒットテキストの画像が格納されているディレクトリ．
-	 */
-	public static final String HIT_TEXT_DIRECTORY = "hitText/";
+    /**
+     * Directory where hit text images are stored.
+     */
+    public static final String HIT_TEXT_DIRECTORY = "hitText/";
 
-	/**
-	 * 背景の画像が格納されているディレクトリ．
-	 */
-	public static final String BACKGROUND_DIRECTORY = "background/";
+    /**
+     * Directory where background images are stored.
+     */
+    public static final String BACKGROUND_DIRECTORY = "background/";
 
-	/**
-	 * BGMファイル名．
-	 */
-	public static final String BGM_FILE = "BGM0.wav";
+    /**
+     * BGM (Background Music) file name.
+     */
+    public static final String BGM_FILE = "BGM0.wav";
 
-	/**
-	 * サウンドが格納されているディレクトリ．
-	 */
-	public static String SOUND_DIRECTORY = "./data/sounds/";
-
+    /**
+     * Directory where sound files are stored.
+     */
+    public static String SOUND_DIRECTORY = "./data/sounds/";
 }

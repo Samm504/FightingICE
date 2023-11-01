@@ -5,78 +5,77 @@ import grpc.GrpcServer;
 import python.PyGatewayServer;
 
 /**
- * キャラクターの最大HPや試合の繰り返し回数など、試合を行う際に必要な設定を扱うクラス．
+ * A class that handles settings necessary for conducting matches, such as maximum character HP and match repetition count.
  */
 public final class LaunchSetting {
 
 	/**
-	 * P1,P2の最大HPを格納する配列．
+	 * Arrays to store the maximum HP for P1 and P2.
 	 */
 	public static int[] maxHp = { 400, 400 };
 
 	/**
-	 * P1,P2の最大エネルギーを格納する配列．
+	 * Arrays to store the maximum energy for P1 and P2.
 	 */
 	public static int[] maxEnergy = { 300, 300 };
 
 	/**
-	 * P1,P2のAI名を格納する配列．<br>
-	 * キーボードの場合は"Keyboard"が格納される．
+	 * Arrays to store the AI names for P1 and P2.<br>
+	 * "Keyboard" is stored for keyboard control.
 	 */
-	public static String[] aiNames = { "KeyBoard", "KeyBoard" };
+	public static String[] aiNames = { "Keyboard", "Keyboard" };
 
 	/**
-	 * P1,P2のキャラクター名．
+	 * Character names for P1 and P2.
 	 */
 	public static String[] characterNames = { "ZEN", "ZEN" };
 	
 	public static String soundName = "Default";
 
 	/**
-	 * 利用するデバイスタイプ．<br>
-	 * {@code 0} if the device type is keyboard，or {@code 1} if AI.
+	 * Device type in use.<br>
+	 * {@code 0} if the device type is keyboard, or {@code 1} if AI.
 	 */
 	public static char[] deviceTypes = { 0, 0 };
 
 	/**
-	 * Pythonを利用するときのポート番号．
+	 * Port number to use for Python integration.
 	 */
 	public static int py4jPort = 4242;
 
 	/**
-	 * 試合を繰り返して行う回数．
+	 * Number of repetitions for conducting matches.
 	 */
 	public static int repeatNumber = 1;
 
 	/**
-	 * 画素を反転させるプレイヤーの番号．
+	 * Player number that will have pixel inversion.
 	 */
 	public static int invertedPlayer = 0;
 
 	/**
-	 * 背景の種類．
+	 * Background type.
 	 */
 	public static BackgroundType backgroundType = BackgroundType.IMAGE;
 
 	/**
-	 * リプレイデータの名前．
+	 * Name of replay data.
 	 */
 	public static String replayName = "None";
 
 	/**
-	 * 試合の繰り返し回数のカウンタ．
+	 * Counter for the number of match repetitions.
 	 */
 	public static int repeatedCount = 0;
 
 	/**
-	 * PythonでJavaの処理を行うためのゲートウェイサーバー．
+	 * Gateway server for performing Java processing with Python.
 	 */
 	public static PyGatewayServer pyGatewayServer = null;
 
 	/**
-	 * AI's visual data is disabled or not
+	 * Whether AI's visual data is disabled or not.
 	 */
-
 	public static boolean[] noVisual = {false, false};
 	public static boolean[] nonDelay = {false, false};
 	

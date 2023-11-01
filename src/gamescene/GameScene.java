@@ -3,32 +3,32 @@ package gamescene;
 import enumerate.GameSceneName;
 
 /**
- * LauncherやPlayといった,ゲームシーンの共通部分をまとめた親クラス．
+ * Parent class that encapsulates common parts of game scenes such as Launcher and Play.
  */
 public class GameScene {
 
 	/*
-	 * 現在のゲームシーンの名前．
+	 * The name of the current game scene.
 	 */
 	protected GameSceneName gameSceneName;
 
 	/**
-	 * ゲームが終わったかどうかを表すフラグ．
+	 * Flag indicating whether the game has ended.
 	 */
 	protected boolean isGameEndFlag;
 
 	/**
-	 * 次のゲームシーンへの遷移要求があったかどうかを表すフラグ．
+	 * Flag indicating whether there is a request to transition to the next game scene.
 	 */
 	protected boolean isTransitionFlag;
 
 	/**
-	 * 次の遷移先のゲームシーン．
+	 * The next game scene to transition to.
 	 */
 	protected GameScene nextGameScene;
 
 	/**
-	 * クラスコンストラクタ．
+	 * Class constructor.
 	 */
 	public GameScene() {
 		this.gameSceneName = GameSceneName.HOME_MENU;
@@ -38,10 +38,10 @@ public class GameScene {
 	}
 
 	/**
-	 * 引数で指定されたgameSceneインスタンスのコピーを生成するクラスコンストラクタ．
+	 * Class constructor that generates a copy of the specified gameScene instance.
 	 *
 	 * @param gameScene
-	 *            指定されたゲームシーン
+	 *            The specified game scene
 	 */
 	public GameScene(GameScene gameScene) {
 		this.gameSceneName = gameScene.getCurrentSceneName();
@@ -52,16 +52,16 @@ public class GameScene {
 	}
 
 	/**
-	 * 引数で指定されたデータでインスタンスを作成するクラスコンストラクタ．
+	 * Class constructor that creates an instance with the specified data.
 	 *
 	 * @param gameSceneName
-	 *            指定されたゲームシーン名
+	 *            The specified game scene name
 	 * @param isEndFlag
-	 *            現在のシーンが終わったかどうかを表すフラグ
+	 *            Flag indicating whether the current scene has ended
 	 * @param isTransitionFlag
-	 *            遷移要求があったかどうかを表すフラグ
+	 *            Flag indicating whether there is a transition request
 	 * @param nextGameScene
-	 *            次に遷移するゲームシーン
+	 *            The next game scene to transition to
 	 *
 	 */
 	public GameScene(GameSceneName gameSceneName, boolean isEndFlag, boolean isTransitionFlag,
@@ -73,99 +73,88 @@ public class GameScene {
 	}
 
 	/**
-	 * 現在のゲームシーンの初期化を行う．
+	 * Performs initialization for the current game scene.
 	 */
 	public void initialize() {
 	}
 
 	/**
-	 * 現在のゲームシーンの更新を行う．
+	 * Performs an update for the current game scene.
 	 */
 	public void update() {
 	}
 
 	/**
-	 * 現在のゲームシーンの終了処理を行う．
+	 * Performs closing operations for the current game scene.
 	 */
 	public void close() {
 	}
 
 	/**
-	 * 次の遷移先のゲームシーンを取得する．
+	 * Gets the next game scene to transition to.
 	 *
-	 * @return 次の遷移先のゲームシーン
+	 * @return The next game scene to transition to
 	 */
 	public GameScene getNextGameScene() {
 		return nextGameScene;
 	}
 
 	/**
-	 * 現在のゲームシーン名を取得する．
+	 * Gets the name of the current game scene.
 	 *
-	 * @return 現在のゲームシーン名
+	 * @return The name of the current game scene
 	 */
 	public GameSceneName getCurrentSceneName() {
 		return this.gameSceneName;
 	}
 
 	/**
-	 * 次の遷移先のゲームシーンをセットする．
+	 * Sets the next game scene for transition.
 	 *
 	 * @param next
-	 *            次の遷移先のゲームシーン
+	 *            The next game scene for transition
 	 */
 	public void setNextGameScene(GameScene next) {
 		this.nextGameScene = next;
 	}
 
 	/**
-	 * 現在のゲームシーンのシーン名をセットする．
+	 * Returns whether there is a request to end the game.
 	 *
-	 * @param gameSceneName
-	 *            現在のゲームシーン名
-	 */
-	public void setCurrentSceneName(GameSceneName gameSceneName) {
-		this.gameSceneName = gameSceneName;
-	}
-
-	/**
-	 * ゲームの終了要求があったかどうかを返す．
-	 *
-	 * @return {@code true} ゲームの終了要求があった; {@code false} otherwise
+	 * @return {@code true} if there is a request to end the game; {@code false} otherwise
 	 */
 	public boolean isGameEnd() {
 		return this.isGameEndFlag;
 	}
 
 	/**
-	 * 次のゲームシーンへの遷移要求があったかどうかを返す．
+	 * Returns whether there is a request to transition to the next game scene.
 	 *
-	 * @return {@code true} 次のゲームシーンへの遷移要求があった; {@code false} otherwise
+	 * @return {@code true} if there is a request to transition to the next game scene; {@code false} otherwise
 	 */
 	public boolean isTransition() {
 		return this.isTransitionFlag;
 	}
 
 	/**
-	 * ゲームの終了要求を表すフラグをセットする．<br>
-	 * {@code true} 終了要求があった; {@code false} 終了要求が無かった
+	 * Sets the flag indicating a request to end the game.<br>
+	 * {@code true} if there is a request to end the game; {@code false} if there is no request.
 	 *
 	 * @param isEnd
-	 *            終了要求があったかを表すフラグ
+	 *            Flag indicating whether there is a request to end the game
 	 */
 	public void setGameEndFlag(boolean isEnd) {
 		this.isGameEndFlag = isEnd;
 	}
 
 	/**
-	 * 次のゲームシーンへの遷移要求を表すフラグをセットする．<br>
-	 * {@code true} 遷移要求があった; {@code false} 遷移要求が無かった
+	 * Sets the flag indicating a request to transition to the next game scene.<br>
+	 * {@code true} if there is a request to transition; {@code false} if there is no request.
 	 *
 	 * @param isTransition
-	 *            遷移要求があったかを表すフラグ
+	 *            Flag indicating whether there is a request to transition to the next game scene
 	 */
 	public void setTransitionFlag(boolean isTransition) {
 		this.isTransitionFlag = isTransition;
 	}
-
 }

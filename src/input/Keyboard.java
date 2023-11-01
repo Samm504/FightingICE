@@ -10,22 +10,22 @@ import enumerate.GameSceneName;
 import manager.InputManager;
 
 /**
- * キー入力を扱うクラス．
+ * A class for handling keyboard input.
  */
 public class Keyboard extends GLFWKeyCallback {
 
 	/**
-	 * 各キーが押されたかどうかのboolean valueを格納する配列．
+	 * An array to store boolean values indicating whether each key is pressed.
 	 */
 	public static boolean[] keys = new boolean[65536];
 
 	/**
-	 * 前のステップで各キーが押されていたかどうかのboolean valueを格納する配列．
+	 * An array to store boolean values indicating whether each key was pressed in the previous frame.
 	 */
 	private static boolean[] preKeys = new boolean[65536];
 
 	/**
-	 * クラスコンストラクタ．
+	 * Class constructor.
 	 */
 	public Keyboard() {
 		Arrays.fill(keys, false);
@@ -45,30 +45,32 @@ public class Keyboard extends GLFWKeyCallback {
 	}
 
 	/**
-	 * 指定されたキーが入力されているかどうかを返す．
+	 * Returns whether the specified key is currently being pressed.
 	 *
 	 * @param keycode
-	 *            指定するキー
-	 * @return {@code true} 指定されたキーが入力されたとき，{@code false} otherwise
+	 *            The key to check
+	 * @return {@code true} if the specified key is being pressed, {@code false} otherwise
 	 */
 	public static boolean getKey(int keycode) {
 		return keys[keycode];
 	}
 
 	/**
-	 * 指定されたキーが押されているかどうかを返す．
+	 * Returns whether the specified key is currently being pressed.
 	 *
 	 * @param keycode
-	 *            指定するキー
-	 * @return ゲームシーンがPLAYであるとき
+	 *            The key to check
+	 * @return In the game scene "PLAY":
 	 *         <p>
-	 *         {@code true} 指定されたキーが入力されているとき，<br>
-	 *         {@code false} 指定されたキーが入力されていないとき．
+	 *         {@code true} if the specified key is being pressed, or
 	 *         <p>
-	 *         それ以外のゲームシーンのとき
+	 *         {@code false} if the specified key is not being pressed.
 	 *         <p>
-	 *         {@code true} 指定されたキーが入力されているとき，<br>
-	 *         {@code false} 指定されたキーが入力されていない,または前ステップで入力されていたとき．
+	 *         In other game scenes:
+	 *         <p>
+	 *         {@code true} if the specified key is being pressed, or
+	 *         <p>
+	 *         {@code false} if the specified key is not being pressed or was pressed in the previous frame.
 	 */
 	public static boolean getKeyDown(int keycode) {
 		if (InputManager.getInstance().getSceneName() == GameSceneName.PLAY) {
@@ -86,11 +88,10 @@ public class Keyboard extends GLFWKeyCallback {
 				return true;
 			}
 		}
-
 	}
 
 	/**
-	 * 終了処理．
+	 * Cleanup operation.
 	 */
 	public void close() {
 
